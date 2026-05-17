@@ -5,7 +5,7 @@ Calculadora funcional desenvolvida com HTML, CSS e JavaScript puro, como projeto
 ## 🔗 Demo
 
 > Acesse a calculadora ao vivo pelo GitHub Pages:  
-> `https://enzolimam-arch.github.io/calculadora`
+> `https://enzolimam-arch.github.io/Enzo-matos/projetos/pessoais/calculadora`
 
 ## ✨ Funcionalidades
 
@@ -36,7 +36,7 @@ calculadora/
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seuusuario/calculadora.git
+git clone https://github.com/enzolimam-arch/Enzo-matos
 ```
 
 2. Abra o arquivo `index.html` no navegador — sem necessidade de servidor ou instalações.
@@ -50,4 +50,4 @@ git clone https://github.com/seuusuario/calculadora.git
 
 ---
 
-Desenvolvido como parte do portfólio acadêmico · [Voltar ao portfólio](https://seuusuario.github.io)
+Desenvolvido como parte do portfólio acadêmico · [Voltar ao portfólio](https://enzolimam-arch.github.io)
