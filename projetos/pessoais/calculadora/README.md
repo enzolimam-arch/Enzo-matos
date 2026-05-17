@@ -7,10 +7,6 @@ Calculadora funcional desenvolvida com HTML, CSS e JavaScript puro, como projeto
 > Acesse a calculadora ao vivo pelo GitHub Pages:  
 > `https://enzolimam-arch.github.io/calculadora`
 
-## 📸 Preview
-
-![Calculadora](preview.png)
-
 ## ✨ Funcionalidades
 
 - Operações básicas: adição, subtração, multiplicação e divisão
