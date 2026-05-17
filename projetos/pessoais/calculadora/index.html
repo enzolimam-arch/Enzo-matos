@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --accent: #e8ff47;
+      --accent2: #ff6b35;
+      --text: #f0f0f0;
+      --muted: #666;
+      --radius: 16px;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(232,255,71,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,107,53,0.04) 0%, transparent 50%);
+    }
+
+    .calc-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 340px;
+      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .calc-header {
+      background: var(--surface);
+      border: 1px solid #2a2a2a;
+      border-bottom: none;
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding: 20px 24px 16px;
+    }
+
+    .calc-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .display {
+      font-family: 'Share Tech Mono', monospace;
+      text-align: right;
+    }
+
+    .display-expr {
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 20px;
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .display-main {
+      font-size: 42px;
+      color: var(--text);
+      line-height: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+
+    .display-main.flash {
+      color: var(--accent);
+    }
+
+    .calc-body {
+      background: var(--surface);
+      border: 1px solid #2a2a2a;
+      border-top: 1px solid #222;
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 16px;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    button {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      height: 60px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.08s, background 0.12s, box-shadow 0.12s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:active { transform: scale(0.93); }
+
+    button::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: white;
+      opacity: 0;
+      transition: opacity 0.15s;
+      border-radius: inherit;
+    }
+    button:active::after { opacity: 0.06; }
+
+    /* Número */
+    .btn-num {
+      background: var(--surface2);
+      color: var(--text);
+    }
+    .btn-num:hover { background: #2e2e2e; }
+
+    /* Zero ocupa 2 colunas */
+    .btn-zero {
+      grid-column: span 2;
+    }
+
+    /* Operador */
+    .btn-op {
+      background: #2a2a2a;
+      color: var(--accent);
+      font-size: 20px;
+    }
+    .btn-op:hover { background: #333; }
+
+    /* Igual */
+    .btn-eq {
+      background: var(--accent);
+      color: #0f0f0f;
+      font-size: 22px;
+    }
+    .btn-eq:hover { background: #d4eb30; box-shadow: 0 0 20px rgba(232,255,71,0.3); }
+
+    /* Limpar / função */
+    .btn-fn {
+      background: #1e1e1e;
+      color: var(--accent2);
+      font-size: 14px;
+    }
+    .btn-fn:hover { background: #272727; }
+
+    .calc-footer {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calc-wrapper">
+  <div class="calc-header">
+    <div class="calc-label">Calculadora</div>
+    <div class="display">
+      <div class="display-expr" id="expr"></div>
+      <div class="display-main" id="display">0</div>
+    </div>
+  </div>
+
+  <div class="calc-body">
+    <div class="btn-grid">
+      <!-- Linha 1 -->
+      <button class="btn-fn" onclick="clearAll()">AC</button>
+      <button class="btn-fn" onclick="toggleSign()">+/−</button>
+      <button class="btn-fn" onclick="percent()">%</button>
+      <button class="btn-op" onclick="setOp('/')">÷</button>
+
+      <!-- Linha 2 -->
+      <button class="btn-num" onclick="input('7')">7</button>
+      <button class="btn-num" onclick="input('8')">8</button>
+      <button class="btn-num" onclick="input('9')">9</button>
+      <button class="btn-op" onclick="setOp('*')">×</button>
+
+      <!-- Linha 3 -->
+      <button class="btn-num" onclick="input('4')">4</button>
+      <button class="btn-num" onclick="input('5')">5</button>
+      <button class="btn-num" onclick="input('6')">6</button>
+      <button class="btn-op" onclick="setOp('-')">−</button>
+
+      <!-- Linha 4 -->
+      <button class="btn-num" onclick="input('1')">1</button>
+      <button class="btn-num" onclick="input('2')">2</button>
+      <button class="btn-num" onclick="input('3')">3</button>
+      <button class="btn-op" onclick="setOp('+')">+</button>
+
+      <!-- Linha 5 -->
+      <button class="btn-num btn-zero" onclick="input('0')">0</button>
+      <button class="btn-num" onclick="inputDot()">.</button>
+      <button class="btn-eq" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <div class="calc-footer">portfolio · calculadora v1.0</div>
+</div>
+
+<script>
+  let current = '0';
+  let stored = null;
+  let operator = null;
+  let newInput = false;
+  let exprStr = '';
+
+  const display = document.getElementById('display');
+  const expr    = document.getElementById('expr');
+
+  function update(val) {
+    display.textContent = val;
+  }
+
+  function flash() {
+    display.classList.add('flash');
+    setTimeout(() => display.classList.remove('flash'), 200);
+  }
+
+  function input(digit) {
+    if (newInput) { current = digit; newInput = false; }
+    else current = current === '0' ? digit : current + digit;
+    update(current);
+  }
+
+  function inputDot() {
+    if (newInput) { current = '0.'; newInput = false; }
+    else if (!current.includes('.')) current += '.';
+    update(current);
+  }
+
+  function setOp(op) {
+    const opSymbols = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+    if (operator && !newInput) calculate(true);
+    stored = parseFloat(current);
+    operator = op;
+    newInput = true;
+    exprStr = current + ' ' + opSymbols[op];
+    expr.textContent = exprStr;
+  }
+
+  function calculate(intermediate = false) {
+    if (operator === null || stored === null) return;
+    const b = parseFloat(current);
+    let result;
+    switch (operator) {
+      case '+': result = stored + b; break;
+      case '-': result = stored - b; break;
+      case '*': result = stored * b; break;
+      case '/': result = b === 0 ? 'Erro' : stored / b; break;
+    }
+    if (!intermediate) {
+      exprStr = '';
+      expr.textContent = '';
+      operator = null;
+      stored = null;
+    }
+    const formatted = typeof result === 'number'
+      ? parseFloat(result.toFixed(10)).toString()
+      : result;
+    current = formatted;
+    update(formatted);
+    flash();
+    newInput = true;
+  }
+
+  function clearAll() {
+    current = '0'; stored = null; operator = null; newInput = false; exprStr = '';
+    update('0'); expr.textContent = '';
+  }
+
+  function toggleSign() {
+    current = (parseFloat(current) * -1).toString();
+    update(current);
+  }
+
+  function percent() {
+    current = (parseFloat(current) / 100).toString();
+    update(current);
+  }
+
+  // Teclado
+  document.addEventListener('keydown', e => {
+    if (e.key >= '0' && e.key <= '9') input(e.key);
+    else if (e.key === '.') inputDot();
+    else if (e.key === '+') setOp('+');
+    else if (e.key === '-') setOp('-');
+    else if (e.key === '*') setOp('*');
+    else if (e.key === '/') { e.preventDefault(); setOp('/'); }
+    else if (e.key === 'Enter' || e.key === '=') calculate();
+    else if (e.key === 'Escape') clearAll();
+    else if (e.key === 'Backspace') {
+      if (current.length > 1) current = current.slice(0, -1);
+      else current = '0';
+      update(current);
+    }
+  });
+</script>
+</body>
+</html>
