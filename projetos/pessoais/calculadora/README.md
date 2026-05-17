@@ -47,7 +47,3 @@ git clone https://github.com/enzolimam-arch/Enzo-matos
 - Gerenciamento de estado (operador atual, valor armazenado)
 - Estilização com CSS Grid e variáveis CSS
 - Animações e micro-interações com CSS
-
----
-
-Desenvolvido como parte do portfólio acadêmico · [Voltar ao portfólio](https://enzolimam-arch.github.io)
