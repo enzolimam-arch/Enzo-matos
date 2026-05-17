@@ -5,7 +5,7 @@ Calculadora funcional desenvolvida com HTML, CSS e JavaScript puro, como projeto
 ## 🔗 Demo
 
 > Acesse a calculadora ao vivo pelo GitHub Pages:  
-> `https://seuusuario.github.io/calculadora`
+> `https://enzolimam-arch.github.io/calculadora`
 
 ## 📸 Preview
 
