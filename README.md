@@ -1,11 +1,9 @@
 # Enzo-matos
-Portfólio pessoal com projetos acadêmicos e pessoais
+
+Portfólio pessoal
+
 ## 👤 Sobre mim
+
 - **Nome:** Enzo Matos
 - **Curso:** Engenharia de Software
-- **GitHub:** [enzolimam-arch](https://github.com/enzolimam-arch)
-
-## 🛠️ Tecnologias
-- Python
-- Git & GitHub
-- Lógica de Programação
+- **Portfólio:** [enzolimam-arch.github.io/Enzo-matos](https://enzolimam-arch.github.io/Enzo-matos)
