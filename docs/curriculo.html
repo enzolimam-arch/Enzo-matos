@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currículo — Enzo Matos</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f0e8;
+      --surface: #ede8dc;
+      --ink: #1a1712;
+      --ink2: #4a4540;
+      --accent: #c84b2f;
+      --accent2: #2f6ac8;
+      --line: #d0c8b8;
+      --mono: 'DM Mono', monospace;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 40px;
+    }
+
+    .header-left {}
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 7vw, 64px);
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--ink2);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .contact-item:hover { color: var(--accent); }
+
+    .contact-item .dot {
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Layout principal */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+    }
+
+    /* Seção */
+    .section {
+      margin-bottom: 36px;
+    }
+
+    .section-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* Entry */
+    .entry {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .entry-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+    .entry-date {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--ink2);
+      white-space: nowrap;
+    }
+
+    .entry-org {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-bottom: 6px;
+    }
+
+    .entry-desc {
+      font-size: 13px;
+      color: var(--ink2);
+      line-height: 1.7;
+    }
+
+    /* Skills sidebar */
+    .sidebar .section { margin-bottom: 28px; }
+
+    .skill-item {
+      margin-bottom: 14px;
+    }
+
+    .skill-name {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .skill-level {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--ink2);
+    }
+
+    .skill-bar {
+      height: 3px;
+      background: var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 1s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* Idiomas */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .lang-item:last-child { border-bottom: none; }
+
+    .lang-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 2px 8px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 20px;
+    }
+
+    /* Sobre */
+    .sobre-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--ink2);
+      font-style: italic;
+      font-family: var(--serif);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-date {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--ink2);
+    }
+
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--ink2);
+    }
+
+    @media (max-width: 640px) {
+      .header { grid-template-columns: 1fr; }
+      .contacts { align-items: flex-start; }
+      .main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="tag">Currículo · 2026</div>
+      <h1>Enzo<br>Matos</h1>
+      <div class="subtitle">Estudante de Engenharia de Software</div>
+    </div>
+    <div class="contacts">
+      <a class="contact-item" href="mailto:enzomatosfort@gmail.com">
+        <span class="dot"></span>
+        enzomatosfort@gmail.com
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/enzo-matos-b124ba40b/" target="_blank">
+        <span class="dot"></span>
+        linkedin.com/in/enzo-matos
+      </a>
+      <a class="contact-item" href="https://github.com/enzolimam-arch" target="_blank">
+        <span class="dot"></span>
+        github.com/enzolimam-arch
+      </a>
+    </div>
+  </header>
+
+  <div class="main">
+
+    <!-- Coluna principal -->
+    <div class="content">
+
+      <div class="section">
+        <div class="section-title">Sobre mim</div>
+        <p class="sobre-text">
+          Estudante de Engenharia de Software com interesse em desenvolvimento de software
+          e boas práticas de programação. Comprometido com aprendizado contínuo e construção
+          de projetos que gerem valor real.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Formação Acadêmica</div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Engenharia de Software</div>
+            <div class="entry-date">2026 — presente</div>
+          </div>
+          <div class="entry-org">UniCEUB · Brasília, DF</div>
+          <div class="entry-desc">Bacharelado em andamento. Disciplinas de lógica de programação, desenvolvimento web, versionamento com Git e GitHub.</div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Ensino Médio</div>
+            <div class="entry-date">Concluído</div>
+          </div>
+          <div class="entry-org">Ensino Médio Completo</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Projetos</div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Calculadora Web</div>
+            <div class="entry-date">2026</div>
+          </div>
+          <div class="entry-org">HTML · CSS · JavaScript</div>
+          <div class="entry-desc">Calculadora funcional com interface responsiva, suporte a teclado e animações. Publicada via GitHub Pages e versionada com Git.</div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">PortfolioHUB</div>
+            <div class="entry-date">2026</div>
+          </div>
+          <div class="entry-org">HTML · CSS · Git · GitHub Pages</div>
+          <div class="entry-desc">Portfólio profissional publicado como página web, com estrutura de repositório organizada e integração com LinkedIn.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+
+
+      <div class="section">
+        <div class="section-title">Habilidades</div>
+        <div class="lang-item">
+          <span>Python</span>
+          <span class="lang-badge">Básico</span>
+        </div>
+        <div class="lang-item">
+          <span>HTML & CSS</span>
+          <span class="lang-badge">Básico</span>
+        </div>
+        <div class="lang-item">
+          <span>Git & GitHub</span>
+          <span class="lang-badge">Básico</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Idiomas</div>
+        <div class="lang-item">
+          <span>Português</span>
+          <span class="lang-badge">Nativo</span>
+        </div>
+        <div class="lang-item">
+          <span>Inglês</span>
+          <span class="lang-badge">Básico</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Contato</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="mailto:enzomatosfort@gmail.com" style="font-family:var(--mono);font-size:11px;color:var(--ink2);text-decoration:none;">enzomatosfort@gmail.com</a>
+          <a href="https://www.linkedin.com/in/enzo-matos-b124ba40b/" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--accent2);text-decoration:none;">LinkedIn</a>
+          <a href="https://github.com/enzolimam-arch" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--accent2);text-decoration:none;">GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-date">Atualizado em maio de 2026</div>
+    <div class="footer-name">Enzo Matos</div>
+  </div>
+
+</div>
+</body>
+</html>
